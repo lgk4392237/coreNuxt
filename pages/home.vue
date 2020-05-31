@@ -7,7 +7,9 @@
             <template slot="title">
               <i class="el-icon-menu"></i>图片管理
             </template>
-            <el-menu-item index="2-1">图片列表</el-menu-item>
+            <el-menu-item index="2-1">
+               <el-link :underline="false" @click="goMain('/imgList')">图片列表</el-link>
+            </el-menu-item>
             <el-menu-item index="2-2">图片上传</el-menu-item>
           </el-submenu>
           <el-submenu index="2">
@@ -22,49 +24,8 @@
 
       <el-container>
         <el-container>
-          <el-header style="height:130px">
-            <el-row>
-              <el-col :span="24">
-                <div>
-                  <el-button size="small" type="info">搜索</el-button>
-                  <el-button size="small" type="warning">删除</el-button>
-                </div>
-              </el-col>
-            </el-row>
-            <el-row style="padding-top:10px">
-              <el-form ref="seachForm" :model="seachForm" label-width="80px">
-                <el-col :span="6">
-                  <el-form-item label="图片名称">
-                    <el-input v-model="seachForm.name"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item label="图片大小">
-                    <el-input v-model="seachForm.size"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6">
-                  <el-form-item label="模糊搜索">
-                    <el-input v-model="seachForm.like"></el-input>
-                  </el-form-item>
-                </el-col>
-                <el-col :span="6"></el-col>
-              </el-form>
-            </el-row>
-          </el-header>
           <el-main>
-            <div>
-              <ul>
-                <li class="img-li" v-for="item in imgList" :key="item.src">
-                  <el-image
-                    style="width: 200px; height: 200px"
-                    :src="item.src"
-                    :fit="fit"
-                    :preview-src-list="srcList"
-                  ></el-image>
-                </li>
-              </ul>
-            </div>
+            <iframe scrolling="no" width="100%" height="100%" border="0" :src="mainSrc" frameborder=”no”></iframe>
           </el-main>
         </el-container>
       </el-container>
@@ -76,24 +37,17 @@ export default {
   data() {
     return {
       bodyHeight: "",
-      seachForm: { name: "", size: "", like: "" },
-      img1: "images/j1.jpg",
-      img2: "images/j2.jpg",
-      fit: "fill",
-      srcList: ["images/cai1.jpg", "images/cai2.jpg","images/cai3.jpg","images/j1.jpg","images/j2.jpg" ],
-      imgList: [
-        { src: "images/cai1.jpg" },
-        { src: "images/cai2.jpg" },
-        { src: "images/cai3.jpg" },
-        { src: "images/j1.jpg" },
-        { src: "images/j2.jpg" }
-      ]
+      mainSrc:''
     };
   },
-  mounted() {
+   mounted() {
     this.bodyHeight = document.documentElement.clientHeight + "px";
   },
-  created() {}
+  methods:{
+    goMain(src){
+      this.mainSrc=src;
+    }
+  }
 };
 </script>
 <style scoped>
@@ -112,13 +66,5 @@ export default {
 .el-main {
   color: #333;
 }
-.img-li {
-  border: 1px solid rgb(187, 183, 183);
-  width: 200px;
-  height: 200px;
-  float: left;
-  margin-left: 25px;
-  list-style: none;
-  margin-top: 20px;
-}
+
 </style>
