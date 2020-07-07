@@ -2,15 +2,15 @@
   <div>
     <el-container :style="{height:bodyHeight}" id="docBody">
       <el-aside width="200px">
-        <el-menu :default-openeds="['1', '2']">
+        <el-menu :default-openeds="['1']">
           <el-submenu index="1">
             <template slot="title">
               <i class="el-icon-menu"></i>图片管理
             </template>
             <el-menu-item index="2-1">
-               <el-link :underline="false" @click="goMain('/imgList')">图片列表</el-link>
+              <el-link :underline="false" @click="goMain('/imgList')">图片列表</el-link>
             </el-menu-item>
-            <el-menu-item index="2-2">图片上传</el-menu-item>
+            <el-menu-item index="2-2" @click="goMain('/imgUpload')">图片上传</el-menu-item>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
@@ -19,13 +19,26 @@
             <el-menu-item index="3-1">帐户管理</el-menu-item>
             <el-menu-item index="3-2">信息设置</el-menu-item>
           </el-submenu>
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-setting"></i>用户管理
+            </template>
+            <el-menu-item index="4-1" @click="goMain('/userList')">用户列表</el-menu-item>
+          </el-submenu>
         </el-menu>
       </el-aside>
 
       <el-container>
         <el-container>
           <el-main>
-            <iframe scrolling="no" width="100%" height="100%" border="0" :src="mainSrc" frameborder=”no”></iframe>
+            <iframe
+              scrolling="auto"
+              width="100%"
+              height="100%"
+              border="0"
+              :src="mainSrc"
+              frameborder="”no”"
+            ></iframe>
           </el-main>
         </el-container>
       </el-container>
@@ -36,17 +49,23 @@
 export default {
   data() {
     return {
+      title: "图片管理",
       bodyHeight: "",
-      mainSrc:''
+      mainSrc: ""
     };
   },
-   mounted() {
+  mounted() {
     this.bodyHeight = document.documentElement.clientHeight + "px";
   },
-  methods:{
-    goMain(src){
-      this.mainSrc=src;
+  methods: {
+    goMain(src) {
+      this.mainSrc = src;
     }
+  },
+  head() {
+    return {
+      title: this.title
+    };
   }
 };
 </script>
@@ -66,5 +85,4 @@ export default {
 .el-main {
   color: #333;
 }
-
 </style>
